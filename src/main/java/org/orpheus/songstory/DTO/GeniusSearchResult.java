@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class SongRequest {
+@NoArgsConstructor
+@AllArgsConstructor
+public class GeniusSearchResult {
     private String title;
     private String artist;
-    private String album;
+    private String url;
+    private String releaseDate;
+    private String thumbnailUrl;
 }
