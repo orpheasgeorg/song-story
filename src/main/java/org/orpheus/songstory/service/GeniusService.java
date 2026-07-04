@@ -54,6 +54,7 @@ public class GeniusService {
         for (JsonNode hit : hits) {
             JsonNode result = hit.path("result");
             results.add(new GeniusSearchResult(
+                    result.path("id").asLong(),
                     result.path("title").textValue(),
                     result.path("artist_names").textValue(),
                     result.path("url").textValue(),
