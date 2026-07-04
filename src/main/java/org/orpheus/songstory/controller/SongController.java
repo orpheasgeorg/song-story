@@ -26,9 +26,8 @@ public class SongController {
     }
 
     @PostMapping("/story")
-    public void storyBuild(@RequestBody GeniusSearchResult request) {
-        System.out.println(request.toString());
-         aiService.storyBuild(request);
+    public String storyBuild(@RequestBody GeniusSearchResult request) {
+        return aiService.storyBuild(request);
     }
 
 }
