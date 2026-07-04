@@ -12,8 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -26,27 +29,24 @@ public class GeniusService {
 
     public List<GeniusSearchResult> search(SongRequest q){
 
-       // String query = buildSearchUrl(q);
+       String query = buildSearchUrl(q);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + apiKey);
+       HttpHeaders headers = new HttpHeaders();
+       headers.set("Authorization", "Bearer " + apiKey);
 
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
+       HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-       // System.out.println(query);
+       URI uri = URI.create("https://api.genius.com/search?q=" + query);
 
         ResponseEntity<JsonNode> response = restTemplate.exchange(
-                "https://api.genius.com/search?q=" + q.getTitle(),
+                uri,
                 HttpMethod.GET,
                 entity,
                 JsonNode.class
-        );
+       );
 
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getHeaders().getContentType());
-        System.out.println(response.getBody());
 
-        JsonNode hits = response.getBody().path("response").path("hits");
+       JsonNode hits = response.getBody().path("response").path("hits");
 
 
         List<GeniusSearchResult> results = new ArrayList<>();
@@ -64,7 +64,7 @@ public class GeniusService {
         return results;
     }
 
-  /*  private String buildSearchUrl(SongRequest q){
+    private String buildSearchUrl(SongRequest q){
         String query = Stream.of(q.getTitle(), q.getArtist(), q.getAlbum())
                 .filter(s -> s != null && !s.isEmpty())
                 .collect(Collectors.joining(" "));
@@ -74,6 +74,6 @@ public class GeniusService {
         }
 
         return query.replace(" ", "%20");
-    } */
+    }
 
 }
