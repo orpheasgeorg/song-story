@@ -27,7 +27,8 @@ public class AiService {
                 + request.getTitle() + "' by "
                 + request.getArtist()
                 + ", released in " + request.getReleaseDate() + "."
-                + " Include information about the inspiration, the recording process, and any interesting facts.";
+                + " Include information about the inspiration, the recording process, and any interesting facts."
+                + "Keep the response concise, maximum 3-4 paragraphs.";;
 
 
         HttpHeaders headers = new HttpHeaders();
