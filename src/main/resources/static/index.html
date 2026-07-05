@@ -236,7 +236,6 @@
         .song-item:nth-child(7) { animation-delay: 0.35s; }
         .song-item:nth-child(8) { animation-delay: 0.4s; }
         .song-item:nth-child(9) { animation-delay: 0.45s; }
-        .song-item:nth-child(10) { animation-delay: 0.5s; }
 
         @keyframes fadeInUp {
             from {
@@ -396,64 +395,6 @@
             border: 3px dashed #ff00ff;
             text-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
             grid-column: 1 / -1;
-        }
-
-        .pagination-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0 5px 0;
-            border-top: 2px solid #ff00ff;
-            margin-top: 15px;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .pagination-info {
-            color: #00ffff;
-            font-size: 0.45rem;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-            letter-spacing: 1px;
-        }
-
-        .pagination-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .page-btn {
-            background: #111111;
-            border: 2px solid #ff00ff;
-            padding: 8px 16px;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.4rem;
-            color: #00ffff;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
-        }
-
-        .page-btn:hover:not(:disabled) {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #000;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-        }
-
-        .page-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .page-number {
-            color: #00ffff;
-            font-size: 0.5rem;
-            padding: 8px 12px;
-            border: 2px solid #00ffff;
-            background: #0d0d0d;
-            min-width: 35px;
-            text-align: center;
         }
 
         .story-container {
@@ -652,10 +593,6 @@
             .song-results {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .pagination-controls {
-                flex-direction: column;
-                align-items: center;
-            }
             .album-cover {
                 width: 60px;
                 height: 60px;
@@ -698,14 +635,6 @@
             .results-wrapper {
                 max-height: 450px;
                 padding: 10px;
-            }
-            .pagination-buttons {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .page-btn {
-                padding: 6px 12px;
-                font-size: 0.35rem;
             }
         }
 
@@ -750,15 +679,6 @@
 
         <div id="resultsWrapper" class="results-wrapper" style="display: none;">
             <div id="searchResults" class="song-results"></div>
-            
-            <div id="paginationControls" class="pagination-controls">
-                <div class="pagination-info" id="paginationInfo">PAGE 1 OF 1</div>
-                <div class="pagination-buttons">
-                    <button class="page-btn" id="prevPage" disabled>◄ PREV</button>
-                    <span class="page-number" id="currentPage">1</span>
-                    <button class="page-btn" id="nextPage" disabled>NEXT ►</button>
-                </div>
-            </div>
         </div>
 
         <div id="storyContainer" class="story-container">
@@ -783,14 +703,6 @@
         const searchResults = document.getElementById('searchResults');
         const storyText = document.getElementById('storyText');
         const loadingIndicator = document.getElementById('loadingIndicator');
-        const paginationInfo = document.getElementById('paginationInfo');
-        const currentPageSpan = document.getElementById('currentPage');
-        const prevPageBtn = document.getElementById('prevPage');
-        const nextPageBtn = document.getElementById('nextPage');
-
-        let allSongs = [];
-        let currentPage = 0;
-        const ITEMS_PER_PAGE = 10;
 
         // 🎮 COOL ERROR MESSAGES
         const errorMessages = [
@@ -865,19 +777,15 @@
             `;
         }
 
-        function renderPage() {
-            const start = currentPage * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
-            const pageSongs = allSongs.slice(start, end);
-            
+        function displayResults(songs) {
             searchResults.innerHTML = '';
             
-            if (pageSongs.length === 0) {
-                searchResults.innerHTML = `<div class="no-results">NO MORE SONGS</div>`;
+            if (!songs || songs.length === 0) {
+                searchResults.innerHTML = `<div class="no-results">NO SONGS FOUND</div>`;
                 return;
             }
             
-            pageSongs.forEach((song) => {
+            songs.forEach((song) => {
                 const div = document.createElement('div');
                 div.className = 'song-item';
                 
@@ -904,33 +812,8 @@
                 div.appendChild(chooseBtn);
                 searchResults.appendChild(div);
             });
-            
-            const totalPages = Math.ceil(allSongs.length / ITEMS_PER_PAGE);
-            paginationInfo.textContent = `PAGE ${currentPage + 1} OF ${totalPages} (${allSongs.length} TOTAL)`;
-            currentPageSpan.textContent = currentPage + 1;
-            
-            prevPageBtn.disabled = currentPage === 0;
-            nextPageBtn.disabled = currentPage >= totalPages - 1;
-            
-            resultsWrapper.scrollTop = 0;
         }
 
-        prevPageBtn.addEventListener('click', () => {
-            if (currentPage > 0) {
-                currentPage--;
-                renderPage();
-            }
-        });
-
-        nextPageBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(allSongs.length / ITEMS_PER_PAGE);
-            if (currentPage < totalPages - 1) {
-                currentPage++;
-                renderPage();
-            }
-        });
-
-        // 🎮 SHOW COOL ERROR
         function showError(message, statusCode) {
             const error = getRandomError();
             storyText.className = 'story-text error-message';
@@ -941,7 +824,6 @@
             `;
             storyText.style.opacity = '1';
             
-            // Create error particles
             const rect = storyText.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -963,8 +845,6 @@
 
             resultsWrapper.style.display = 'none';
             searchResults.innerHTML = '';
-            allSongs = [];
-            currentPage = 0;
             
             storyText.className = 'story-text';
             storyText.textContent = 'SEARCHING...';
@@ -987,7 +867,6 @@
                 });
 
                 if (!searchResponse.ok) {
-                    // Handle 500 error with cool message
                     if (searchResponse.status === 500) {
                         showError('SERVER MELTDOWN', '500');
                         resultsWrapper.style.display = 'none';
@@ -996,23 +875,10 @@
                     throw new Error(`HTTP error! status: ${searchResponse.status}`);
                 }
 
-                allSongs = await searchResponse.json();
+                const songs = await searchResponse.json();
                 
-                if (!allSongs || allSongs.length === 0) {
-                    resultsWrapper.style.display = 'block';
-                    searchResults.innerHTML = `<div class="no-results">NO SONGS FOUND</div>`;
-                    paginationInfo.textContent = '0 SONGS';
-                    prevPageBtn.disabled = true;
-                    nextPageBtn.disabled = true;
-                    storyText.textContent = 'THE RETRO DATABASE HAS NO RECORD OF THIS SONG...';
-                    storyText.className = 'story-text';
-                    storyText.style.opacity = '1';
-                    return;
-                }
-
-                currentPage = 0;
-                renderPage();
                 resultsWrapper.style.display = 'block';
+                displayResults(songs);
                 
                 storyText.textContent = '';
                 storyText.className = 'story-text';
