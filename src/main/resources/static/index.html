@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONG STORY - 80s RETRO QUEST</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.02) 2px, rgba(0, 255, 255, 0.02) 4px);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', monospace;
+            padding: 20px;
+            image-rendering: pixelated;
+        }
+
+        .game-container {
+            background: #0d0d0d;
+            border: 4px solid #00ffff;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.3),
+                0 0 60px rgba(255, 0, 255, 0.2),
+                inset 0 0 30px rgba(0, 255, 255, 0.05),
+                0 0 0 2px #ff00ff,
+                0 0 0 6px #00ffff;
+            padding: 30px;
+            max-width: 950px;
+            width: 100%;
+            position: relative;
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 0 60px rgba(255, 0, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05), 0 0 0 2px #ff00ff, 0 0 0 6px #00ffff;
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 0, 255, 0.3), 0 0 80px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(255, 0, 255, 0.05), 0 0 0 2px #00ffff, 0 0 0 6px #ff00ff;
+            }
+        }
+
+        .game-title {
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowText 3s ease-in-out infinite;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.3));
+            word-break: break-word;
+        }
+
+        @keyframes rainbowText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            color: #00ffff;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .input-group input {
+            background: #111111;
+            border: 3px solid #ff00ff;
+            padding: 12px 15px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            color: #00ffff;
+            outline: none;
+            transition: all 0.3s;
+            image-rendering: pixelated;
+            box-shadow: inset 0 0 20px rgba(255, 0, 255, 0.1);
+        }
+
+        .input-group input:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .input-group input::placeholder {
+            color: #333;
+            font-size: 0.45rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            padding: 15px 20px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            margin-top: 10px;
+            image-rendering: pixelated;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: borderGlow 2s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.4), 0 0 80px rgba(0, 255, 255, 0.2);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-wrapper {
+            margin-top: 20px;
+            border: 3px solid #ff00ff;
+            background: #0a0a0a;
+            padding: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 30px rgba(255, 0, 255, 0.05);
+            position: relative;
+        }
+
+        .results-wrapper::-webkit-scrollbar {
+            width: 10px;
+            background: #0d0d0d;
+        }
+
+        .results-wrapper::-webkit-scrollbar-track {
+            background: #0d0d0d;
+            border: 2px solid #ff00ff;
+        }
+
+        .results-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: 2px solid #00ffff;
+        }
+
+        .results-wrapper::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        .song-results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .song-item {
+            background: #111111;
+            border: 3px solid #ff00ff;
+            padding: 15px 12px;
+            color: #00ffff;
+            font-size: 0.45rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.1);
+            min-height: 220px;
+            justify-content: flex-start;
+            position: relative;
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+
+        .song-item:nth-child(1) { animation-delay: 0.05s; }
+        .song-item:nth-child(2) { animation-delay: 0.1s; }
+        .song-item:nth-child(3) { animation-delay: 0.15s; }
+        .song-item:nth-child(4) { animation-delay: 0.2s; }
+        .song-item:nth-child(5) { animation-delay: 0.25s; }
+        .song-item:nth-child(6) { animation-delay: 0.3s; }
+        .song-item:nth-child(7) { animation-delay: 0.35s; }
+        .song-item:nth-child(8) { animation-delay: 0.4s; }
+        .song-item:nth-child(9) { animation-delay: 0.45s; }
+        .song-item:nth-child(10) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .song-item:hover {
+            border-color: #00ffff;
+            background: #1a1a1a;
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), 0 10px 20px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .song-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 300% 300%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: borderGlow 2s linear infinite;
+        }
+
+        .song-item:hover::before {
+            opacity: 1;
+        }
+
+        .album-cover {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            image-rendering: pixelated;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            flex-shrink: 0;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+
+        .album-cover .placeholder {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            text-align: center;
+            line-height: 1.2;
+            padding: 5px;
+            word-break: break-word;
+        }
+
+        .album-cover .vinyl-ring {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 255, 255, 0.1);
+            animation: spinVinyl 4s linear infinite;
+        }
+
+        @keyframes spinVinyl {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .song-item:hover .album-cover {
+            border-color: #ff00ff;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .song-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .song-title {
+            color: #00ffff;
+            font-size: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .song-artist {
+            color: #ff00ff;
+            font-size: 0.4rem;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            word-break: break-word;
+        }
+
+        .song-album-label {
+            color: #ffff00;
+            font-size: 0.35rem;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+            word-break: break-word;
+            padding: 4px 8px;
+            border: 2px dashed #ffff00;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .choose-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: 2px solid #00ffff;
+            padding: 8px 20px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.4rem;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            width: 100%;
+            max-width: 120px;
+            margin-top: auto;
+        }
+
+        .choose-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .no-results {
+            color: #ff00ff;
+            font-size: 0.55rem;
+            text-align: center;
+            padding: 40px 20px;
+            border: 3px dashed #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            grid-column: 1 / -1;
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0 5px 0;
+            border-top: 2px solid #ff00ff;
+            margin-top: 15px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            color: #00ffff;
+            font-size: 0.45rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .page-btn {
+            background: #111111;
+            border: 2px solid #ff00ff;
+            padding: 8px 16px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.4rem;
+            color: #00ffff;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .page-number {
+            color: #00ffff;
+            font-size: 0.5rem;
+            padding: 8px 12px;
+            border: 2px solid #00ffff;
+            background: #0d0d0d;
+            min-width: 35px;
+            text-align: center;
+        }
+
+        .story-container {
+            margin-top: 30px;
+            padding: 25px;
+            background: #0d0d0d;
+            border: 3px solid #00ffff;
+            min-height: 150px;
+            position: relative;
+            transition: all 0.5s ease-in-out;
+            box-shadow: inset 0 0 50px rgba(0, 255, 255, 0.05);
+        }
+
+        .story-container::before {
+            content: "~ ~ ~";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d0d0d;
+            padding: 0 15px;
+            color: #ff00ff;
+            font-size: 0.7rem;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .story-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .story-text {
+            color: #00ffff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.55rem;
+            line-height: 2.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: none;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+
+        .story-text.visible {
+            animation: retroReveal 0.8s ease-out forwards;
+        }
+
+        @keyframes retroReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+                filter: blur(4px) hue-rotate(0deg);
+            }
+            50% {
+                filter: blur(2px) hue-rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0) hue-rotate(360deg);
+            }
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            color: #ff00ff;
+            font-size: 0.55rem;
+            padding: 20px;
+            animation: retroPulse 0.8s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        @keyframes retroPulse {
+            0%, 100% { 
+                opacity: 0.5; 
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05);
+                text-shadow: 0 0 40px rgba(255, 0, 255, 0.8), 0 0 80px rgba(0, 255, 255, 0.4);
+            }
+        }
+
+        /* 🎮 COOL ERROR MESSAGES */
+        .error-message {
+            color: #ff00ff !important;
+            font-size: 0.55rem !important;
+            text-align: center !important;
+            padding: 20px !important;
+            border: 3px solid #ff00ff !important;
+            background: rgba(255, 0, 255, 0.05) !important;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.3) !important;
+            animation: errorGlitch 0.5s ease-in-out infinite;
+            font-family: 'Press Start 2P', monospace !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-message::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 0, 255, 0.05) 2px,
+                rgba(255, 0, 255, 0.05) 4px
+            );
+            animation: scanError 2s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scanError {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes errorGlitch {
+            0%, 100% { transform: translate(0); }
+            25% { transform: translate(-3px, 2px); }
+            50% { transform: translate(3px, -2px); }
+            75% { transform: translate(-2px, 3px); }
+        }
+
+        .error-message .error-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: pulseIcon 1s ease-in-out infinite;
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .error-message .error-code {
+            color: #ffff00;
+            font-size: 0.4rem;
+            display: block;
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+
+        .retro-particles {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatParticle 3s ease-in-out forwards;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) rotate(720deg) scale(0);
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .song-results {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pagination-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .album-cover {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .game-container { 
+                padding: 15px; 
+            }
+            .game-title { 
+                font-size: 1.2rem; 
+                letter-spacing: 3px;
+            }
+            .btn-primary { 
+                font-size: 0.5rem; 
+                padding: 12px; 
+            }
+            .song-results {
+                grid-template-columns: 1fr;
+            }
+            .song-item {
+                min-height: 180px;
+                padding: 12px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .album-cover {
+                width: 70px;
+                height: 70px;
+            }
+            .story-text {
+                font-size: 0.45rem;
+                line-height: 2;
+            }
+            .input-group input {
+                font-size: 0.5rem;
+            }
+            .results-wrapper {
+                max-height: 450px;
+                padding: 10px;
+            }
+            .pagination-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .page-btn {
+                padding: 6px 12px;
+                font-size: 0.35rem;
+            }
+        }
+
+        .game-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.01) 2px,
+                rgba(0, 255, 255, 0.01) 4px
+            );
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">SONG STORY</h1>
+        
+        <form id="searchForm" class="search-form">
+            <div class="input-group">
+                <label>TRACK TITLE</label>
+                <input type="text" id="songTitle" placeholder="OPTIONAL - EX: BOHEMIAN RHAPSODY" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>ARTIST</label>
+                <input type="text" id="artistName" placeholder="OPTIONAL - EX: QUEEN" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>ALBUM</label>
+                <input type="text" id="albumName" placeholder="OPTIONAL - EX: A NIGHT AT THE OPERA" autocomplete="off">
+            </div>
+            <button type="submit" id="searchBtn" class="btn-primary">SEARCH</button>
+        </form>
+
+        <div id="resultsWrapper" class="results-wrapper" style="display: none;">
+            <div id="searchResults" class="song-results"></div>
+            
+            <div id="paginationControls" class="pagination-controls">
+                <div class="pagination-info" id="paginationInfo">PAGE 1 OF 1</div>
+                <div class="pagination-buttons">
+                    <button class="page-btn" id="prevPage" disabled>◄ PREV</button>
+                    <span class="page-number" id="currentPage">1</span>
+                    <button class="page-btn" id="nextPage" disabled>NEXT ►</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="storyContainer" class="story-container">
+            <div id="storyText" class="story-text">
+                SEARCH FOR A SONG TO BEGIN THE STORY...
+            </div>
+            <div id="loadingIndicator" class="loading-spinner">
+                GENERATING STORY...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = ''; // Leave empty to use same domain
+        
+        const searchForm = document.getElementById('searchForm');
+        const searchBtn = document.getElementById('searchBtn');
+        const songTitle = document.getElementById('songTitle');
+        const artistName = document.getElementById('artistName');
+        const albumName = document.getElementById('albumName');
+        const resultsWrapper = document.getElementById('resultsWrapper');
+        const searchResults = document.getElementById('searchResults');
+        const storyText = document.getElementById('storyText');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const paginationInfo = document.getElementById('paginationInfo');
+        const currentPageSpan = document.getElementById('currentPage');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+
+        let allSongs = [];
+        let currentPage = 0;
+        const ITEMS_PER_PAGE = 10;
+
+        // 🎮 COOL ERROR MESSAGES
+        const errorMessages = [
+            { icon: '💥', msg: 'SYSTEM CRASH! THE RETRO DATABASE IS ON FIRE!' },
+            { icon: '🌀', msg: 'DIMENSIONAL RIFT DETECTED! PORTAL TO THE 80s CLOSED!' },
+            { icon: '⚡', msg: 'OVER 9000! THE SERVER HAS GONE SUPER SAIYAN!' },
+            { icon: '👾', msg: 'SPACE INVADERS ATTACKED THE SERVER! RETRY!' },
+            { icon: '🎮', msg: 'GAME OVER! PRESS START TO CONTINUE!' },
+            { icon: '🔥', msg: 'THE MIXTAPE IS ON FIRE! CALL THE 80s FIRE DEPARTMENT!' },
+            { icon: '🕹️', msg: 'JOYSTICK MALFUNCTION! THE 80s ARE GLITCHING!' },
+            { icon: '📼', msg: 'VHS TAPE GOT EATEN! REWIND AND RETRY!' },
+            { icon: '💾', msg: 'FLOPPY DISK ERROR! INSERT DISK 2 OF 3!' },
+            { icon: '🎵', msg: 'THE RECORD SKIPPED! DROP THE NEEDLE AGAIN!' }
+        ];
+
+        function getRandomError() {
+            return errorMessages[Math.floor(Math.random() * errorMessages.length)];
+        }
+
+        function createRetroParticles(event) {
+            const particles = ['+', '*', '~', '^', '&', '%', '$', '#'];
+            const container = document.createElement('div');
+            container.className = 'retro-particles';
+            container.style.left = event.clientX - 50 + 'px';
+            container.style.top = event.clientY - 50 + 'px';
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.left = Math.random() * 100 + 'px';
+                particle.style.top = Math.random() * 100 + 'px';
+                particle.style.animationDelay = Math.random() * 0.5 + 's';
+                particle.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                particle.style.color = ['#00ffff', '#ff00ff', '#ffff00', '#00ff00'][Math.floor(Math.random() * 4)];
+                container.appendChild(particle);
+            }
+            
+            document.body.appendChild(container);
+            setTimeout(() => container.remove(), 3000);
+        }
+
+        function getAlbumCover(song) {
+            const thumbnailUrl = song.thumbnailUrl;
+            const albumName = song.album || 'UNKNOWN';
+            
+            const initials = albumName
+                .split(' ')
+                .filter(word => word.length > 0)
+                .map(word => word[0])
+                .join('')
+                .substring(0, 3)
+                .toUpperCase() || '?';
+            
+            if (thumbnailUrl && thumbnailUrl.startsWith('http')) {
+                return `
+                    <div class="album-cover">
+                        <img src="${thumbnailUrl}" alt="${albumName} cover" loading="lazy" 
+                             onerror="this.parentElement.innerHTML = '<div class=\\'placeholder\\'>${initials}</div><div class=\\'vinyl-ring\\'></div>'">
+                    </div>
+                `;
+            }
+            
+            const colors = ['#ff00ff', '#00ffff', '#ffff00', '#00ff00', '#ff6600', '#ff0066'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            return `
+                <div class="album-cover" style="background: linear-gradient(135deg, #1a1a1a, ${randomColor}22); border-color: ${randomColor};">
+                    <div class="vinyl-ring"></div>
+                    <div class="placeholder">${initials}</div>
+                </div>
+            `;
+        }
+
+        function renderPage() {
+            const start = currentPage * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageSongs = allSongs.slice(start, end);
+            
+            searchResults.innerHTML = '';
+            
+            if (pageSongs.length === 0) {
+                searchResults.innerHTML = `<div class="no-results">NO MORE SONGS</div>`;
+                return;
+            }
+            
+            pageSongs.forEach((song) => {
+                const div = document.createElement('div');
+                div.className = 'song-item';
+                
+                const coverHtml = getAlbumCover(song);
+                
+                const songInfo = document.createElement('div');
+                songInfo.className = 'song-info';
+                songInfo.innerHTML = `
+                    ${coverHtml}
+                    <span class="song-title">${song.title || 'UNKNOWN TITLE'}</span>
+                    <span class="song-artist">${song.artist || 'UNKNOWN ARTIST'}</span>
+                    ${song.album ? `<span class="song-album-label">${song.album}</span>` : ''}
+                `;
+                
+                const chooseBtn = document.createElement('button');
+                chooseBtn.className = 'choose-btn';
+                chooseBtn.textContent = 'SELECT';
+                
+                chooseBtn.addEventListener('click', async () => {
+                    await generateStory(song);
+                });
+                
+                div.appendChild(songInfo);
+                div.appendChild(chooseBtn);
+                searchResults.appendChild(div);
+            });
+            
+            const totalPages = Math.ceil(allSongs.length / ITEMS_PER_PAGE);
+            paginationInfo.textContent = `PAGE ${currentPage + 1} OF ${totalPages} (${allSongs.length} TOTAL)`;
+            currentPageSpan.textContent = currentPage + 1;
+            
+            prevPageBtn.disabled = currentPage === 0;
+            nextPageBtn.disabled = currentPage >= totalPages - 1;
+            
+            resultsWrapper.scrollTop = 0;
+        }
+
+        prevPageBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        });
+
+        nextPageBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(allSongs.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage();
+            }
+        });
+
+        // 🎮 SHOW COOL ERROR
+        function showError(message, statusCode) {
+            const error = getRandomError();
+            storyText.className = 'story-text error-message';
+            storyText.innerHTML = `
+                <span class="error-icon">${error.icon}</span>
+                ${error.msg}
+                <span class="error-code">ERROR ${statusCode || '500'} • ${message || 'UNKNOWN'}</span>
+            `;
+            storyText.style.opacity = '1';
+            
+            // Create error particles
+            const rect = storyText.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            createRetroParticles({ clientX: centerX, clientY: centerY });
+        }
+
+        searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = songTitle.value.trim();
+            const artist = artistName.value.trim();
+            const album = albumName.value.trim();
+            
+            if (!title && !artist && !album) {
+                showError('MISSING FIELDS', '400');
+                resultsWrapper.style.display = 'none';
+                return;
+            }
+
+            resultsWrapper.style.display = 'none';
+            searchResults.innerHTML = '';
+            allSongs = [];
+            currentPage = 0;
+            
+            storyText.className = 'story-text';
+            storyText.textContent = 'SEARCHING...';
+            storyText.style.opacity = '1';
+            searchBtn.disabled = true;
+            searchBtn.textContent = 'SEARCHING...';
+
+            const requestBody = {};
+            if (title) requestBody.title = title;
+            if (artist) requestBody.artist = artist;
+            if (album) requestBody.album = album;
+
+            try {
+                const searchResponse = await fetch(`${API_BASE_URL}/api/songs/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!searchResponse.ok) {
+                    // Handle 500 error with cool message
+                    if (searchResponse.status === 500) {
+                        showError('SERVER MELTDOWN', '500');
+                        resultsWrapper.style.display = 'none';
+                        return;
+                    }
+                    throw new Error(`HTTP error! status: ${searchResponse.status}`);
+                }
+
+                allSongs = await searchResponse.json();
+                
+                if (!allSongs || allSongs.length === 0) {
+                    resultsWrapper.style.display = 'block';
+                    searchResults.innerHTML = `<div class="no-results">NO SONGS FOUND</div>`;
+                    paginationInfo.textContent = '0 SONGS';
+                    prevPageBtn.disabled = true;
+                    nextPageBtn.disabled = true;
+                    storyText.textContent = 'THE RETRO DATABASE HAS NO RECORD OF THIS SONG...';
+                    storyText.className = 'story-text';
+                    storyText.style.opacity = '1';
+                    return;
+                }
+
+                currentPage = 0;
+                renderPage();
+                resultsWrapper.style.display = 'block';
+                
+                storyText.textContent = '';
+                storyText.className = 'story-text';
+                storyText.style.opacity = '1';
+
+                resultsWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error('Search error:', error);
+                showError(error.message, '500');
+                resultsWrapper.style.display = 'none';
+            } finally {
+                searchBtn.disabled = false;
+                searchBtn.textContent = 'SEARCH';
+            }
+        });
+
+        async function generateStory(song) {
+            loadingIndicator.classList.add('active');
+            storyText.className = 'story-text';
+            storyText.textContent = '';
+            storyText.style.opacity = '0';
+            resultsWrapper.style.display = 'none';
+
+            try {
+                const storyResponse = await fetch(`${API_BASE_URL}/api/songs/story`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(song)
+                });
+
+                if (!storyResponse.ok) {
+                    if (storyResponse.status === 500) {
+                        showError('STORY GENERATION FAILED', '500');
+                        loadingIndicator.classList.remove('active');
+                        return;
+                    }
+                    throw new Error(`HTTP error! status: ${storyResponse.status}`);
+                }
+
+                const story = await storyResponse.text();
+                
+                storyText.textContent = story || 'THE STORY WAS BORN... BUT REMAINS MYSTERIOUS...';
+                storyText.className = 'story-text visible';
+                storyText.style.opacity = '1';
+                
+                const rect = storyText.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                createRetroParticles({ clientX: centerX, clientY: centerY });
+                
+                document.getElementById('storyContainer').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+
+            } catch (error) {
+                console.error('Story generation error:', error);
+                showError(error.message, '500');
+            } finally {
+                loadingIndicator.classList.remove('active');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (e.target.id === 'songTitle' || e.target.id === 'artistName' || e.target.id === 'albumName')) {
+                e.preventDefault();
+                searchForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        console.log('🎮 RETRO SONG STORY SYSTEM ACTIVATED');
+        console.log('📡 BACKEND URL:', API_BASE_URL || 'SAME DOMAIN');
+    </script>
+</body>
+</html>
