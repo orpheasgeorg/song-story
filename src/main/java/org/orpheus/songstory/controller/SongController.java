@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/songs")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class SongController {
 
     private final GeniusService geniusService;
