@@ -4,7 +4,7 @@ A Spring Boot web application that tells the story behind a song. The user searc
 
 ## Live Demo
 
-- Web UI: https://song-story.onrender.com
+- Web UI: [https://song-story.onrender.com](https://song-story-1iq8.onrender.com)
 
 > The first request may take 30-60 seconds as the server spins up on the free tier.
 
