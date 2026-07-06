@@ -1,4 +1,4 @@
-package org.orpheus.songstory.service;
+package org.orpheus.songstory.service.classic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
