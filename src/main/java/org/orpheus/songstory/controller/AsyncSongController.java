@@ -5,10 +5,7 @@ import org.orpheus.songstory.DTO.GeniusSearchResult;
 import org.orpheus.songstory.DTO.SongRequest;
 import org.orpheus.songstory.service.async.AsyncAiService;
 import org.orpheus.songstory.service.async.AsyncGeniusService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,11 +13,13 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/api/v2/songs")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AsyncSongController {
 
-    private AsyncGeniusService asyncGeniusService;
-    private AsyncAiService asyncAiService;
+    private final AsyncGeniusService asyncGeniusService;
+    private final AsyncAiService asyncAiService;
 
+    @PostMapping("/search")
     public CompletableFuture<List<GeniusSearchResult>> searchSongs(@RequestBody SongRequest request) {
         return asyncGeniusService.asyncSearch(request);
     }

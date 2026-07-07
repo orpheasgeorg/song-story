@@ -1,5 +1,6 @@
 package org.orpheus.songstory.service.async;
 
+import lombok.RequiredArgsConstructor;
 import org.orpheus.songstory.DTO.GeniusSearchResult;
 import org.orpheus.songstory.DTO.SongRequest;
 import org.orpheus.songstory.service.classic.GeniusService;
@@ -10,12 +11,21 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@RequiredArgsConstructor
 public class AsyncGeniusService {
 
-    private GeniusService geniusService;
+    private final GeniusService geniusService;
 
     @Async
     public CompletableFuture<List<GeniusSearchResult>> asyncSearch(SongRequest request) {
+
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
         List<GeniusSearchResult> results = geniusService.search(request);
         return CompletableFuture.completedFuture(results);
