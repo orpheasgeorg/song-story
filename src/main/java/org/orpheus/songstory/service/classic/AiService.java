@@ -2,6 +2,7 @@ package org.orpheus.songstory.service.classic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.orpheus.songstory.DTO.GeniusSearchResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AiService {
@@ -21,7 +23,7 @@ public class AiService {
     @Value("${grok.api.key}")
     private String apiKey;
 
-    public String storyBuild(GeniusSearchResult request) {
+    public String storyBuild(GeniusSearchResult request) throws InterruptedException {
 
         String prompt = "Tell me the story behind the song '"
                 + request.getTitle() + "' by "
@@ -64,7 +66,8 @@ public class AiService {
                 .path("content")
                 .asText();
 
-        System.out.println(answer);
+        Thread.sleep(1000L);
+        log.info(Thread.currentThread().getName());
 
         return answer;
     }

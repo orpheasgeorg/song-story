@@ -14,13 +14,14 @@ public class AppConfig {
     }
 
     @Bean
-    public Executor asyncExecutor() {
+    public ThreadPoolTaskExecutor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("AsyncExecutor-");
         executor.initialize();
+        return executor;
     }
 
 }

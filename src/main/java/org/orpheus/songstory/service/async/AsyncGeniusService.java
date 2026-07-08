@@ -17,15 +17,7 @@ public class AsyncGeniusService {
     private final GeniusService geniusService;
 
     @Async
-    public CompletableFuture<List<GeniusSearchResult>> asyncSearch(SongRequest request) {
-
-
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+    public CompletableFuture<List<GeniusSearchResult>> asyncSearch(SongRequest request) throws InterruptedException {
 
         List<GeniusSearchResult> results = geniusService.search(request);
         return CompletableFuture.completedFuture(results);

@@ -2,6 +2,7 @@ package org.orpheus.songstory.service.classic;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.orpheus.songstory.DTO.GeniusSearchResult;
 import org.orpheus.songstory.DTO.SongRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GeniusService {
@@ -27,7 +29,7 @@ public class GeniusService {
     @Value("${genius.api.key}")
     private String apiKey;
 
-    public List<GeniusSearchResult> search(SongRequest q){
+    public List<GeniusSearchResult> search(SongRequest q) throws InterruptedException {
 
        String query = buildSearchUrl(q);
 
@@ -65,7 +67,7 @@ public class GeniusService {
         return results;
     }
 
-    private String buildSearchUrl(SongRequest q){
+    private String buildSearchUrl(SongRequest q) throws InterruptedException {
         String query = Stream.of(q.getTitle(), q.getArtist(), q.getAlbum())
                 .filter(s -> s != null && !s.isEmpty())
                 .collect(Collectors.joining(" "));
@@ -74,7 +76,12 @@ public class GeniusService {
             throw new IllegalArgumentException("At least one search criterion is required");
         }
 
+        Thread.sleep(1000L);
+        log.info(Thread.currentThread().getName());
+
         return query.replace(" ", "%20");
     }
+
+
 
 }

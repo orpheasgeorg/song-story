@@ -15,15 +15,11 @@ public class AsyncAiService {
     private final AiService aiService;
 
     @Async
-    public CompletableFuture<String> asyncStoryBuild(GeniusSearchResult request) {
-
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+    public CompletableFuture<String> asyncStoryBuild(GeniusSearchResult request) throws InterruptedException {
 
         String results = aiService.storyBuild(request);
         return CompletableFuture.completedFuture(results);
+
+
     }
 }
